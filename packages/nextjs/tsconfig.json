@@ -14,8 +14,15 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "baseUrl": ".",  // 👈 important: set baseUrl to project root
     "paths": {
-      "~~/*": ["./*"]
+      "~~/*": ["src/*", "./*"],   // 👈 allow both src/* and root/*
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@lib/*": ["src/lib/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@styles/*": ["src/styles/*"],
+      "@types/*": ["src/types/*"]
     },
     "plugins": [
       {

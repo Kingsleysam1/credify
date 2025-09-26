@@ -1,0 +1,36 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/YourContract.sol": {
+      "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract registerAIGeneratedContent {\n    struct Contents {\n        string prompt;\n        string response;\n        address creator;\n        string ipfsID;\n        uint256 timeStamp;\n    }\n\n    // Lookup by keccak256(content + metadata)\n    mapping(bytes32 => Contents) public contentByHash;\n\n    // Enables verification by content string (AI response)\n    mapping(string => bytes32) public hashByContent;\n\n    // 🔍 Track all content hashes for explorer\n    bytes32[] public contentHashes;\n\n    event ContentRegistered(\n        bytes32 indexed contentHash,\n        address indexed creator,\n        string prompt,\n        string response,\n        string ipfsID,\n        uint256 timeStamp\n    );\n\n    function registerAIContent(\n        bytes32 contentHash,\n        string calldata prompt,\n        string calldata response,\n        string calldata ipfsID\n    ) external {\n        require(contentByHash[contentHash].timeStamp == 0, \"Content already exists\");\n\n        contentByHash[contentHash] = Contents({\n            prompt: prompt,\n            response: response,\n            creator: msg.sender,\n            ipfsID: ipfsID,\n            timeStamp: block.timestamp\n        });\n\n        hashByContent[response] = contentHash;\n        contentHashes.push(contentHash); // ✅ track all hashes\n\n        emit ContentRegistered(contentHash, msg.sender, prompt, response, ipfsID, block.timestamp);\n    }\n\n    function getContentByHash(\n        bytes32 contentHash\n    )\n        external\n        view\n        returns (\n            string memory prompt,\n            string memory response,\n            address creator,\n            string memory ipfsID,\n            uint256 timeStamp\n        )\n    {\n        Contents storage content = contentByHash[contentHash];\n        return (\n            content.prompt,\n            content.response,\n            content.creator,\n            content.ipfsID,\n            content.timeStamp\n        );\n    }\n\n    function contentExists(bytes32 contentHash) external view returns (bool) {\n        return contentByHash[contentHash].timeStamp != 0;\n    }\n\n    function getHashByContent(string calldata response) external view returns (bytes32) {\n        return hashByContent[response];\n    }\n\n    // 📚 For block explorer: return all stored hashes\n    function allContentHashes() external view returns (bytes32[] memory) {\n        return contentHashes;\n    }\n}\n"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "evmVersion": "paris",
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}

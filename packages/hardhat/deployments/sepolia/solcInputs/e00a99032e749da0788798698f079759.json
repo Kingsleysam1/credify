@@ -1,0 +1,36 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/YourContract.sol": {
+      "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract registerAIGeneratedContent {\n    struct Contents {\n        string prompt;\n        string response; // ✅ New: Store the generated content\n        address creator;\n        string ipfsID;\n        uint256 timeStamp;\n    }\n\n    // Mapping from keccak256 hash to content data\n    mapping(bytes32 => Contents) public contentByHash;\n\n    // 🔍 New: Mapping from response text to hash\n    mapping(string => bytes32) public hashByResponse;\n\n    event ContentRegistered(\n        bytes32 indexed contentHash,\n        address indexed creator,\n        string prompt,\n        string response,\n        string ipfsID,\n        uint256 timeStamp\n    );\n\n    /**\n     * Register AI-generated content to the blockchain.\n     */\n    function registerAIContent(\n        bytes32 contentHash,\n        string calldata prompt,\n        string calldata response,\n        string calldata ipfsID\n    ) external {\n        require(contentByHash[contentHash].timeStamp == 0, \"Content already exists\");\n\n        contentByHash[contentHash] = Contents({\n            prompt: prompt,\n            response: response,\n            creator: msg.sender,\n            ipfsID: ipfsID,\n            timeStamp: block.timestamp\n        });\n\n        // Map response text to the hash for lookup\n        hashByResponse[response] = contentHash;\n\n        emit ContentRegistered(contentHash, msg.sender, prompt, response, ipfsID, block.timestamp);\n    }\n\n    /**\n     * Retrieve content by its contentHash (from hash-based lookup)\n     */\n    function getContentByHash(bytes32 contentHash)\n        external\n        view\n        returns (string memory prompt, string memory response, address creator, string memory ipfsID, uint256 timeStamp)\n    {\n        Contents storage content = contentByHash[contentHash];\n        return (content.prompt, content.response, content.creator, content.ipfsID, content.timeStamp);\n    }\n\n    /**\n     * 🔍 Lookup content by the AI-generated response text\n     */\n    function getContentByResponse(string calldata response)\n        external\n        view\n        returns (string memory prompt, string memory responseText, address creator, string memory ipfsID, uint256 timeStamp)\n    {\n        bytes32 hash = hashByResponse[response];\n        Contents storage content = contentByHash[hash];\n        require(content.timeStamp != 0, \"Content not found\");\n        return (content.prompt, content.response, content.creator, content.ipfsID, content.timeStamp);\n    }\n\n    /**\n     * Check if a given contentHash exists\n     */\n    function contentExists(bytes32 contentHash) external view returns (bool) {\n        return contentByHash[contentHash].timeStamp != 0;\n    }\n}\n"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "evmVersion": "paris",
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}

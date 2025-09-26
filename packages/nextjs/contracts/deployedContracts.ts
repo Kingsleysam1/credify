@@ -4,6 +4,254 @@
  */
 import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 
-const deployedContracts = {} as const;
+const deployedContracts = {
+  11155111: {
+    registerAIGeneratedContent: {
+      address: "0x2288f96CC741e3D26c32AdC1d459258451F9845b",
+      abi: [
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "contentHash",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "creator",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "prompt",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "response",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "ipfsID",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "timeStamp",
+              type: "uint256",
+            },
+          ],
+          name: "ContentRegistered",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "allContentHashes",
+          outputs: [
+            {
+              internalType: "bytes32[]",
+              name: "",
+              type: "bytes32[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          name: "contentByHash",
+          outputs: [
+            {
+              internalType: "string",
+              name: "prompt",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "response",
+              type: "string",
+            },
+            {
+              internalType: "address",
+              name: "creator",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "ipfsID",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "timeStamp",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "contentHash",
+              type: "bytes32",
+            },
+          ],
+          name: "contentExists",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "contentHashes",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "contentHash",
+              type: "bytes32",
+            },
+          ],
+          name: "getContentByHash",
+          outputs: [
+            {
+              internalType: "string",
+              name: "prompt",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "response",
+              type: "string",
+            },
+            {
+              internalType: "address",
+              name: "creator",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "ipfsID",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "timeStamp",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "response",
+              type: "string",
+            },
+          ],
+          name: "getHashByContent",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          name: "hashByContent",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "contentHash",
+              type: "bytes32",
+            },
+            {
+              internalType: "string",
+              name: "prompt",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "response",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "ipfsID",
+              type: "string",
+            },
+          ],
+          name: "registerAIContent",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+      deployedOnBlock: 8899032,
+    },
+  },
+} as const;
 
 export default deployedContracts satisfies GenericContractsDeclaration;

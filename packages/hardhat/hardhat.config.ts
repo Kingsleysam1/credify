@@ -46,6 +46,10 @@ const config: HardhatUserConfig = {
     },
   },
   networks: {
+    sepolia: {
+      url: `https://eth-sepolia.g.alchemy.com/v2/${providerApiKey}`,
+      accounts: [deployerPrivateKey],
+    },
     // View the networks that are pre-configured.
     // If the network you are looking for is not here you can add new network settings
     hardhat: {
@@ -58,10 +62,7 @@ const config: HardhatUserConfig = {
       url: "https://mainnet.rpc.buidlguidl.com",
       accounts: [deployerPrivateKey],
     },
-    sepolia: {
-      url: `https://eth-sepolia.g.alchemy.com/v2/${providerApiKey}`,
-      accounts: [deployerPrivateKey],
-    },
+    
     arbitrum: {
       url: `https://arb-mainnet.g.alchemy.com/v2/${providerApiKey}`,
       accounts: [deployerPrivateKey],

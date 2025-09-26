@@ -1,0 +1,36 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/YourContract.sol": {
+      "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract registerAIGeneratedContent {\n    struct Contents {\n        string prompt;\n        address creator;\n        string ipfsID;\n        uint256 timeStamp;\n    }\n    mapping(bytes32 => Contents) public contentByHash;\n    event ContentRegistered(\n        bytes32 indexed contenthash,\n        address indexed creator,\n        string prompt,\n        string ipfsID,\n        uint256 timeStamp\n    );\n    function registerAIContent(\n        bytes32 contentHash,\n        string calldata prompt,\n        string calldata ipfsID\n    ) external {\n       require(contentByHash[contentHash].timeStamp == 0, \"Content already exist\");\n       contentByHash[contentHash] = Contents({\n            prompt: prompt,\n            creator: msg.sender,\n            ipfsID: ipfsID,\n            timeStamp: block.timestamp\n        });\n        emit ContentRegistered(contentHash, msg.sender, prompt, ipfsID, block.timestamp);\n    }\n\n    function getContentByHash(bytes32 contentHash) external view returns (string memory prompt, address creator, string memory ipfsID, uint256 timeStamp) {\n        Contents storage content = contentByHash[contentHash];\n        return (content.prompt, content.creator, content.ipfsID, content.timeStamp);\n    }\n    function contentExists(bytes32 contentHash) external view returns (bool) {\n        return contentByHash[contentHash].timeStamp != 0;\n    }\n}"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "evmVersion": "paris",
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}

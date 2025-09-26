@@ -1,6 +1,12 @@
 {
   "name": "@se-2/hardhat",
   "version": "0.0.1",
+  "resolutions": {
+    "wrap-ansi": "^7.0.0",
+    "@inquirer/core/wrap-ansi": "^7.0.0",
+    "strip-ansi": "6.0.1",
+    "string-width": "4.2.3"
+  },
   "scripts": {
     "account": "hardhat run scripts/listAccount.ts",
     "account:generate": "hardhat run scripts/generateAccount.ts",
@@ -56,8 +62,14 @@
     "@inquirer/password": "^4.0.2",
     "@openzeppelin/contracts": "^5.0.2",
     "@typechain/ethers-v6": "^0.5.1",
-    "dotenv": "^16.4.5",
+    "dotenv": "^17.2.0",
     "envfile": "^7.1.0",
-    "qrcode": "^1.5.4"
+    "hardhat": "^2.17.0",
+    "hardhat-deploy": "^0.11.22",
+    "qrcode": "^1.5.4",
+    "string-width": "4.2.3",
+    "strip-ansi": "6.0.1",
+    "webextension-polyfill": "^0.12.0",
+    "wrap-ansi": "7.0.0"
   }
 }

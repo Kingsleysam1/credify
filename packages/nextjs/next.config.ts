@@ -14,6 +14,18 @@ const nextConfig: NextConfig = {
     config.externals.push("pino-pretty", "lokijs", "encoding");
     return config;
   },
+  async rewrites() {
+    return [
+      {
+        source: "/generate",
+        destination: "http://localhost:5001/generate",
+      },
+      {
+        source: "/verify",
+        destination: "http://localhost:5001/verify",
+      },
+    ];
+  },
 };
 
 const isIpfs = process.env.NEXT_PUBLIC_IPFS_BUILD === "true";
